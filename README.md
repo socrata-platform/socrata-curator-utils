@@ -11,6 +11,7 @@
 * `CuratorBroker`, a class for registering a service with Curator.
 * `CuratorServiceIntegration`, a helper trait to spin up ZK, Curator,
   discovery for testing.
+* `DiscoveryBrokerFromConfig`, a top level CuratedServiceClient provider.
 
 ## Releasing ##
 
