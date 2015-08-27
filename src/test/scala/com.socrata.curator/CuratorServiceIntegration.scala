@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import com.socrata.http.client.{NoopLivenessChecker, HttpClientHttpClient}
 import com.socrata.http.common.AuxiliaryData

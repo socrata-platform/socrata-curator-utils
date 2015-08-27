@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import com.socrata.thirdparty.typesafeconfig.ConfigClass
 import com.typesafe.config.Config

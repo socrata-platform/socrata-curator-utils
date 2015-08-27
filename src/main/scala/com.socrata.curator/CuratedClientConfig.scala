@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import java.util.concurrent.TimeUnit.SECONDS
 import scala.concurrent.duration.FiniteDuration

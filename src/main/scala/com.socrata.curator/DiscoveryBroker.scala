@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import com.rojoma.simplearm.v2.{Managed, Resource}
 import org.apache.curator.x.discovery.ServiceDiscovery

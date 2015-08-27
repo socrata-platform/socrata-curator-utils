@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import com.socrata.http.client._
 import com.socrata.http.client.exceptions._

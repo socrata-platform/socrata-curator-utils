@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import scala.language.reflectiveCalls
 import org.apache.curator.x.discovery.{UriSpec, ServiceInstance, ServiceDiscovery}

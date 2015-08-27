@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import scala.concurrent.duration.FiniteDuration
 import scala.util.{Failure, Success, Try}
@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory
 
 import com.socrata.http.client.{RequestBuilder, Response, SimpleHttpRequest}
 import com.socrata.http.server.HttpResponse
-import com.socrata.thirdparty.curator.ServerProvider.{Complete, Retry}
+
+import ServerProvider.{Complete, Retry}
 
 /**
   * Manages connections and requests to the provided service.

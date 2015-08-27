@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import java.io.Closeable
 import org.apache.curator.x.discovery.{strategies => providerStrategies, ServiceDiscovery}

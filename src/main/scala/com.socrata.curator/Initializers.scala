@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import com.rojoma.simplearm.v2.Managed
 import org.apache.curator.framework.{CuratorFramework, CuratorFrameworkFactory}
@@ -25,7 +25,7 @@ object CuratorFromConfig {
    * Function for creating a curator framework without starting it or closing it.
    * User will have to be responsible for calling `start()` and `close()`.
    *
-   * @param config a CuratorConfig from which to create the [[CuratorFramework]]
+   * @param config a CuratorConfig from which to create the CuratorFramework
    */
   def unmanaged(config: CuratorConfig): CuratorFramework = {
     CuratorFrameworkFactory.builder.

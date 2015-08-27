@@ -1,4 +1,4 @@
-package com.socrata.thirdparty.curator
+package com.socrata.curator
 
 import org.apache.curator.x.discovery.{ServiceProvider, ProviderStrategy, ServiceDiscovery}
 
