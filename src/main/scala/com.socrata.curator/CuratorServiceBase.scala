@@ -20,14 +20,14 @@ abstract class CuratorServiceBase[T](discovery: ServiceDiscovery[T], serviceName
   /**
    * Starts the Zookeeper service provider
    */
-  def start() {
+  def start(): Unit = {
     provider.start()
   }
 
   /**
    * Closes the Zookeeper service provider
    */
-  def close() {
+  def close(): Unit = {
     provider.close()
   }
 }

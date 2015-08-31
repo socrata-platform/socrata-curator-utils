@@ -20,7 +20,10 @@ import org.slf4j.LoggerFactory
  *   }
  * }}}
  */
-class CuratorBroker[T](serviceDiscovery: ServiceDiscovery[T], address: String, serviceName: String, auxData: Option[T]) {
+class CuratorBroker[T](serviceDiscovery: ServiceDiscovery[T],
+                       address: String,
+                       serviceName: String,
+                       auxData: Option[T]) {
   type Cookie = ServiceInstance[T]
 
   val logger = LoggerFactory.getLogger(getClass)
@@ -41,7 +44,7 @@ class CuratorBroker[T](serviceDiscovery: ServiceDiscovery[T], address: String, s
     instance
   }
 
-  def deregister(cookie: Cookie) {
+  def deregister(cookie: Cookie): Unit = {
     logger.info(s"Deregistering service $serviceName at address $address...")
     serviceDiscovery.unregisterService(cookie)
   }

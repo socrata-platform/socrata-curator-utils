@@ -2,25 +2,35 @@ package com.socrata.curator
 
 import org.apache.curator.x.discovery.{ServiceProvider, ProviderStrategy, ServiceDiscovery}
 
+// scalastyle:off null return
 /**
- * A cache for Curator service providers
- */
+  * A cache for Curator service providers
+  */
 class ProviderCache[T](discovery: ServiceDiscovery[T], strategy: ProviderStrategy[T], serviceName: String) {
   private[this] val prefix = serviceName + "."
   private[this] val serviceProviders = new java.util.concurrent.ConcurrentHashMap[String, ServiceProvider[T]]
-  @volatile private[this] var closed = false
+    @volatile private[this] var closed = false
 
   def apply(instance: String): ServiceProvider[T] = {
-    if(closed) throw new IllegalStateException("ProviderCache closed")
+    if (closed) {
+      throw new IllegalStateException("ProviderCache closed")
+    }
 
     val serviceName = prefix + instance
     val existing = serviceProviders.get(serviceName)
-    if(existing != null) return existing
+    if (existing != null) {
+      return existing
+    }
+
     synchronized {
-      if(closed) throw new IllegalStateException("ProviderCache closed")
+      if (closed) {
+        throw new IllegalStateException("ProviderCache closed")
+      }
 
       val secondTry = serviceProviders.get(serviceName)
-      if(secondTry != null) return secondTry
+      if (secondTry != null) {
+        return secondTry
+      }
 
       val newProvider = discovery.serviceProviderBuilder().
         providerStrategy(strategy).
@@ -40,7 +50,7 @@ class ProviderCache[T](discovery: ServiceDiscovery[T], strategy: ProviderStrateg
     }
   }
 
-  def close() {
+  def close(): Unit = {
     synchronized {
       closed = true
       var ex: Throwable = null
@@ -50,12 +60,17 @@ class ProviderCache[T](discovery: ServiceDiscovery[T], strategy: ProviderStrateg
         it.remove()
         try { ent.getValue.close() }
         catch { case e: Throwable =>
-          if (ex != null) ex.addSuppressed(e)
-          else ex = e
+          if (ex != null) {
+            ex.addSuppressed(e)
+          } else {
+            ex = e
+          }
         }
       }
       serviceProviders.clear()
-      if(ex != null) throw ex
+      if (ex != null) {
+        throw ex
+      }
     }
   }
 }

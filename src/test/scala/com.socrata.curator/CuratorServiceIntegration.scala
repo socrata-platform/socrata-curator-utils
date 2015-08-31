@@ -39,9 +39,9 @@ trait CuratorServiceIntegration {
   import collection.JavaConverters._
 
   // You will want to override def configPrefix
-  def configPrefix = "com.socrata"
-  def curatorConfigPrefix = configPrefix + ".curator"
-  def discoveryConfigPrefix = configPrefix + ".service-advertisement"
+  def configPrefix: String = "com.socrata"
+  def curatorConfigPrefix: String = configPrefix + ".curator"
+  def discoveryConfigPrefix: String = configPrefix + ".service-advertisement"
 
   lazy val zk = new TestingServer
   lazy val cfgOverride = Map(curatorConfigPrefix + ".ensemble" -> Seq(s"localhost:${zk.getPort}").asJava,
@@ -61,12 +61,12 @@ trait CuratorServiceIntegration {
 
   protected def getFallback = ConfigFactory.load()
 
-  def startServices() {
+  def startServices(): Unit = {
     curator.start
     discovery.start
   }
 
-  def stopServices() {
+  def stopServices(): Unit = {
     httpClient.close
     Try(discovery.close)
     curator.close

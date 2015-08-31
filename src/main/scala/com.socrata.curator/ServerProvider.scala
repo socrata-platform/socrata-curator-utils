@@ -7,6 +7,9 @@ import org.apache.curator.x.discovery.ServiceProvider
 import org.apache.http.client.CircularRedirectException
 import scala.annotation.tailrec
 
+import ServerProvider._
+
+// scalastyle:off cyclomatic.complexity null
 /**
  * Classes and objects related to ServerProvider class
  */
@@ -24,8 +27,7 @@ object ServerProvider {
 
   @tailrec
   private def ultimateCause(t: Throwable): Throwable =
-    if(t.getCause != null) ultimateCause(t.getCause)
-    else t
+    if (t.getCause != null) ultimateCause(t.getCause) else t
 
   private def standardRetryOnDecision(e: Exception): RetryDecision =
     ultimateCause(e) match {
@@ -41,7 +43,7 @@ object ServerProvider {
 
   trait Service {
     def baseRequest: RequestBuilder
-    def markBad()
+    def markBad(): Unit
   }
 
   sealed abstract class RetryResult[+T]
@@ -56,8 +58,6 @@ object ServerProvider {
  * @param http   HTTP client object
  */
 class ServerProvider(val finder: () => Option[ServerProvider.Service], val http: HttpClient) {
-  import ServerProvider._
-
   private val log = org.slf4j.LoggerFactory.getLogger(getClass)
 
   private sealed abstract class FailedCause
@@ -69,11 +69,12 @@ class ServerProvider(val finder: () => Option[ServerProvider.Service], val http:
   private case object NoServices extends RequestResult
   private case class RequestMade(host: ServerProvider.Service, response: Response with Closeable) extends RequestResult
 
-  private def makeRequest(completer: RequestBuilder => SimpleHttpRequest, retryWhen: RetryWhen): RequestResult = {
+  private def makeRequest(completer: RequestBuilder => SimpleHttpRequest,
+                          retryWhen: RetryWhen): RequestResult = {
     finder() match {
       case Some(hp) =>
         def maybeAbort(e: Exception, causeClassifier: FailedCause, markBad: Boolean = true) = {
-          if(markBad) hp.markBad()
+          if (markBad) hp.markBad()
           Failed(e, causeClassifier)
         }
         val req = completer(hp.baseRequest)
@@ -123,11 +124,17 @@ class ServerProvider(val finder: () => Option[ServerProvider.Service], val http:
         case RequestMade(_, resp) =>
           resp
         case Failed(_, FailedDueToConnection) =>
-          if(retriesLeft <= 0) onNoServers
-          else loop(retriesLeft - 1)
+          if (retriesLeft <= 0) {
+            onNoServers
+          } else {
+            loop(retriesLeft - 1)
+          }
         case Failed(ex, FailedDueToOther) =>
-          if(retriesLeft <= 0) throw ex
-          else loop(retriesLeft - 1)
+          if (retriesLeft <= 0) {
+            throw ex
+          } else {
+            loop(retriesLeft - 1)
+          }
         case NoServices =>
           onNoServers
       }
@@ -164,8 +171,11 @@ class ServerProvider(val finder: () => Option[ServerProvider.Service], val http:
               loop(retriesLeft - 1)
           }
         case Failed(ex, FailedDueToOther) =>
-          if(retriesLeft <= 0) throw ex
-          else loop(retriesLeft - 1)
+          if (retriesLeft <= 0) {
+            throw ex
+          } else {
+            loop(retriesLeft - 1)
+          }
         case Failed(_, FailedDueToConnection) if retriesLeft > 0 =>
           loop(retriesLeft - 1)
         case Failed(_, FailedDueToConnection) | NoServices =>

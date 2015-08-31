@@ -3,7 +3,7 @@ package com.socrata.curator
 import com.typesafe.config.Config
 
 class DiscoveryBrokerConfig(config: Config, curatorRoot: String, discoveryRoot: String) {
-  def this(config: Config, root: String) {
+  def this(config: Config, root: String) { // scalastyle:ignore
     this(config, root, root)
   }
 
