@@ -17,7 +17,7 @@ val settings = Seq(
   )
 
 val core = project.settings(
-  ((name := "socrata-curstor-utils") +: settings) : _*
+  ((name := "socrata-curator-utils") +: settings) : _*
 )
 
 val testSettings = settings ++ Seq(
