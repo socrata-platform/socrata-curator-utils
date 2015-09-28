@@ -6,6 +6,7 @@ import com.typesafe.config.ConfigFactory
 import java.util.concurrent.Executors
 import org.apache.curator.test.TestingServer
 import scala.util.Try
+import scala.collection.JavaConverters._
 
 /**
  *  A trait that provides an in-process ZK and curator-based service discovery
@@ -36,8 +37,6 @@ import scala.util.Try
  * NOTE: You will need to pull in the curator-test jar
  */
 trait CuratorServiceIntegration {
-  import collection.JavaConverters._
-
   // You will want to override def configPrefix
   def configPrefix: String = "com.socrata"
   def curatorConfigPrefix: String = configPrefix + ".curator"
