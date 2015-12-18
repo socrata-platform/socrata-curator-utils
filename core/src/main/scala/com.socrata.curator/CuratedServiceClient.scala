@@ -28,6 +28,17 @@ case class CuratedServiceClient(provider: ServerProvider,
     */
   def execute[T](request: RequestBuilder => SimpleHttpRequest,
                  callback: Response => T): T = {
+    // Not using a default paramter to avoid breaking binary compatibility.
+    execute(request, callback, ServerProvider.standardRetryOn)
+  }
+
+  /**
+    * Sends a get request to the provided service.
+    * @return HTTP response code and body
+    */
+  def execute[T](request: RequestBuilder => SimpleHttpRequest,
+                 callback: Response => T,
+                 retryWhen: ServerProvider.RetryWhen): T = {
     val requestWithTimeout = { base: RequestBuilder =>
       val req = base.connectTimeoutMS match {
         case Some(timeout) => base
@@ -39,7 +50,7 @@ case class CuratedServiceClient(provider: ServerProvider,
 
     provider.withRetries(maxRetries,
                          requestWithTimeout,
-                         ServerProvider.RetryOnAllExceptionsDuringInitialRequest) {
+                         retryWhen) {
       case Some(response) =>
         Complete(callback(response))
       case None =>
