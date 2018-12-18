@@ -1,9 +1,9 @@
 package com.socrata.curator
 
-import com.rojoma.simplearm.v2.{Managed, Resource}
+import com.rojoma.simplearm.v2.Managed
 import org.apache.curator.x.discovery.ServiceDiscovery
 
-import com.socrata.http.client.{HttpClient, HttpClientHttpClient}
+import com.socrata.http.client.HttpClient
 
 class DiscoveryBroker private[curator] (discovery: ServiceDiscovery[Void],
                                         httpClient: HttpClient) {

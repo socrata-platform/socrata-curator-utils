@@ -1,8 +1,5 @@
 package com.socrata.curator
 
-import java.util.concurrent.TimeUnit.SECONDS
-import scala.concurrent.duration.FiniteDuration
-
 import com.typesafe.config.Config
 
 import com.socrata.thirdparty.typesafeconfig.ConfigClass

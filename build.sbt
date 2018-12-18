@@ -1,8 +1,10 @@
 name := "socrata-curator-utils"
 
 val commonSettings = Seq(
+    organization := "com.socrata",
     scalaVersion := "2.11.7",
     crossScalaVersions := Seq("2.10.4", scalaVersion.value),
+    resolvers += "socrata" at "https://repo.socrata.com/artifactory/libs-release",
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oFD"),
     com.socrata.sbtplugins.findbugs.JavaFindBugsPlugin.JavaFindBugsKeys.findbugsFailOnError in Compile := false,
     com.socrata.sbtplugins.StylePlugin.StyleKeys.styleCheck in Compile := {},

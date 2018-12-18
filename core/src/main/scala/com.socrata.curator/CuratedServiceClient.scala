@@ -1,15 +1,10 @@
 package com.socrata.curator
 
-import scala.concurrent.duration.FiniteDuration
-import scala.util.{Failure, Success, Try}
-
-import com.rojoma.json.v3.ast.{JString, JValue}
 import org.slf4j.LoggerFactory
 
 import com.socrata.http.client.{RequestBuilder, Response, SimpleHttpRequest}
-import com.socrata.http.server.HttpResponse
 
-import ServerProvider.{Complete, Retry}
+import ServerProvider.Complete
 
 /**
   * Manages connections and requests to the provided service.

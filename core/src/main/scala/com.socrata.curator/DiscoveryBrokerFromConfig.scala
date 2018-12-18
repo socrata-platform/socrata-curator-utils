@@ -2,7 +2,6 @@ package com.socrata.curator
 
 import java.util.concurrent.{Executor, Executors}
 
-import com.rojoma.simplearm.v2.conversions._
 import com.rojoma.simplearm.v2.{Managed, Resource, managed}
 
 import com.socrata.http.client.{HttpClient, HttpClientHttpClient}
