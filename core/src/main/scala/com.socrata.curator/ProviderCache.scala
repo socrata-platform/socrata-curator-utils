@@ -1,12 +1,14 @@
 package com.socrata.curator
 
+import java.io.Closeable
+
 import org.apache.curator.x.discovery.{ServiceProvider, ProviderStrategy, ServiceDiscovery}
 
 // scalastyle:off null return
 /**
   * A cache for Curator service providers
   */
-class ProviderCache[T](discovery: ServiceDiscovery[T], strategy: ProviderStrategy[T], serviceName: String) {
+class ProviderCache[T](discovery: ServiceDiscovery[T], strategy: ProviderStrategy[T], serviceName: String) extends Closeable {
   private[this] val prefix = serviceName + "."
   private[this] val serviceProviders = new java.util.concurrent.ConcurrentHashMap[String, ServiceProvider[T]]
     @volatile private[this] var closed = false
