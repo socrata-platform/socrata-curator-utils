@@ -8,7 +8,13 @@ ThisBuild / resolvers := Seq("Socrata Artifactory Libs Release" at "https://repo
 
 ThisBuild / testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oFD")
 
+ThisBuild / PreviousVersion.previousVersion := "1.2.0"
+
 publishArtifact := false
+
+// disable mima for the root project
+mimaPreviousArtifacts := Set()
+mimaFailOnNoPrevious := false
 
 val core = project in file("core")
 
