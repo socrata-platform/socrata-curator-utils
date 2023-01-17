@@ -12,4 +12,5 @@ class DiscoveryConfig(config: Config, root: String) extends ConfigClass(config, 
   val serviceBasePath = getString("service-base-path")
   val name = getString("name")
   val address = getString("address")
+  val port = optionally(getInt("port"))
 }
